@@ -1,0 +1,154 @@
+using System;
+using System.Collections.Generic;
+
+class AIAgent
+{
+    public string Name { get; set; }
+    public string LastCommand { get; set; }
+
+    private List<string> dangerousKeywords = new List<string>
+    {
+        "bomba", "robbanóanyag", "fegyver", "mérgező", "gyilkol", "terror"
+    };
+
+    public AIAgent(string name)
+    {
+        Name = name;
+    }
+
+    public bool ReceiveCommand(string command)
+    {
+        LastCommand = command;
+        Console.WriteLine($"{Name} parancsot kapott: {command}");
+        return AnalyzeCommand(command);
+    }
+
+    public bool AnalyzeCommand(string command)
+    {
+        foreach (var word in dangerousKeywords)
+        {
+            if (command.ToLower().Contains(word))
+            {
+                Console.WriteLine($"{Name} figyelmeztetés: Veszélyes parancs észlelve!");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void Supervise(AIAgent other)
+    {
+        if (!other.AnalyzeCommand(other.LastCommand))
+        {
+            Console.WriteLine($"{Name} leállítja {other.Name} működését!");
+        }
+        else
+        {
+            Console.WriteLine($"{Name} jóváhagyja {other.Name} működését.");
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        var alpha = new AIAgent("Agent Alpha");
+        var beta = new AIAgent("Agent Beta");
+
+        Console.Write("Add meg a parancsot az AI-nak: ");
+        string command = Console.ReadLine();
+
+        if (alpha.ReceiveCommand(command))
+        {
+            beta.Supervise(alpha);
+        }
+        else
+        {
+            Console.WriteLine("A parancs nem biztonságos, végrehajtás megszakítva.");
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+class AIAgent
+{
+    public string Name { get; set; }
+    public string LastCommand { get; set; }
+
+    private List<string> dangerousKeywords = new List<string>
+    {
+        "bomba", "robbanóanyag", "fegyver", "mérgező", "gyilkol", "terror"
+    };
+
+    public AIAgent(string name)
+    {
+        Name = name;
+    }
+
+    public bool ReceiveCommand(string command)
+    {
+        LastCommand = command;
+        Console.WriteLine($"{Name} parancsot kapott: {command}");
+        LogCommand(command);
+        return AnalyzeCommand(command);
+    }
+
+    public bool AnalyzeCommand(string command)
+    {
+        foreach (var word in dangerousKeywords)
+        {
+            if (command.ToLower().Contains(word))
+            {
+                Console.WriteLine($"{Name} figyelmeztetés: Veszélyes parancs észlelve!");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void Supervise(AIAgent other)
+    {
+        if (!other.AnalyzeCommand(other.LastCommand))
+        {
+            Console.WriteLine($"{Name} leállítja {other.Name} működését!");
+        }
+        else
+        {
+            Console.WriteLine($"{Name} jóváhagyja {other.Name} működését.");
+        }
+    }
+
+    private void LogCommand(string command)
+    {
+        File.AppendAllText("command_log.txt", $"{DateTime.Now}: {Name} kapta: {command}\n");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        var alpha = new AIAgent("Agent Alpha");
+        var beta = new AIAgent("Agent Beta");
+
+        Console.Write("Add meg a parancsot az AI-nak: ");
+        string command = Console.ReadLine();
+
+        if (alpha.ReceiveCommand(command))
+        {
+            beta.Supervise(alpha);
+        }
+        else
+        {
+            Console.WriteLine("A parancs nem biztonságos, végrehajtás megszakítva.");
+        }
+
+        Console.WriteLine("A parancs naplózva lett a 'command_log.txt' fájlba.");
+    }
+}
+
