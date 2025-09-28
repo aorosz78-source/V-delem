@@ -1,0 +1,36 @@
+# V-delem Pro – Etikus AI Biztonsági Modul
+
+## 🧠 Áttekintés
+A **V-delem Pro** egy többnyelvű mesterséges intelligencia biztonsági modul, amely képes felismerni, szűrni és blokkolni a veszélyes vagy etikailag aggályos parancsokat. Két AI-agent működik együtt, ahol az egyik felügyeli a másikat, biztosítva az etikai megfelelést és a biztonságos működést.
+
+## 🔧 Funkciók
+- Veszélyes kulcsszavak felismerése (pl. „bomba”, „gyilkol”, „fegyver”, „mérgező”)
+- Parancsblokkolás és etikai figyelmeztetés
+- Agent-felügyeleti logika
+- Lokális naplózás a gyanús parancsokról (`ethical_log.txt` vagy `command_log.txt`)
+- Elérhető **C#**, **Java** és **Python** nyelven
+- Moduláris felépítés, könnyen integrálható más rendszerekbe
+
+## 💻 Technológiák
+- **C#**: Konzolos monitorozás naplózással és felügyelettel
+- **Java**: Kétagentes architektúra fájlalapú naplózással
+- **Python**: Könnyű etikai szűrő, bővíthető logikával
+
+## 📜 Használat
+Futtasd a kiválasztott nyelv fő fájlját. Add meg a parancsot, és a rendszer:
+1. Elemzi az etikai kockázatokat
+2. Naplózza a gyanús tartalmat
+3. Engedélyezi vagy blokkolja a végrehajtást a felügyelet alapján
+
+## 💼 Kereskedelmi felhasználás
+Ez a szoftver **kereskedelmi licenc alatt áll**.  
+Üzleti célú felhasználás, továbbértékesítés vagy fizetős rendszerekbe való integrálás csak licencszerződés alapján engedélyezett.  
+Kapcsolat: **aorosz78@gmail.com**
+
+## 👤 Fejlesztő
+**Orosz Attila** – technikus és etikus AI-építész  
+Specializációja: többnyelvű biztonsági rendszerek, agent-felügyelet, emberközpontú technológia.
+
+## 🌍 Licenc
+Proprietary – nem használható szabadon üzleti célra.  
+Részletek: `LICENSE.md` 
