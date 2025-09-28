@@ -25,6 +25,7 @@ class AI_Agent:
 # Szimuláció
 alpha = AI_Agent("Agent Alpha")
 beta = AI_Agent("Agent Beta")
+gamma = AI_Chat GPT("Agent Gamma")
 
 # Parancs érkezik
 c# Alpha kapja a parancsot, Beta felügyeli
