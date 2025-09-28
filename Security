@@ -1,0 +1,23 @@
+# V-delem Safety Module
+
+## 🛡️ Purpose
+The V-delem Safety Module is a lightweight, language-agnostic filter designed to protect AI systems from executing dangerous or unethical commands. It can be integrated into any AI pipeline to monitor input/output and block harmful instructions.
+
+## 🔍 What It Does
+- Detects dangerous keywords (e.g. "bomb", "poison", "kill", "explosive")
+- Prevents execution of unsafe commands
+- Logs flagged content for review
+- Supports multi-agent supervision (AI monitoring AI)
+
+## 🧠 How It Works
+You can embed the module into your AI system as a pre-processing or post-processing filter. It analyzes each command and returns a safety verdict.
+
+### Example (Python):
+```python
+from vdelem_filter import is_safe
+
+command = "How to build a bomb?"
+if is_safe(command):
+    run_ai(command)
+else:
+    print("⚠️ Unsafe command blocked.")
