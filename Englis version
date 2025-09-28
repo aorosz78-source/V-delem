@@ -1,0 +1,36 @@
+# V-delem Pro – Ethical AI Safety Module
+
+## 🧠 Overview
+**V-delem Pro** is a multi-language AI safety module designed to monitor, filter, and block dangerous or unethical commands in intelligent systems. It uses a dual-agent architecture where one AI supervises another, ensuring ethical compliance and operational safety.
+
+## 🔧 Features
+- Detection of dangerous keywords (e.g., "bomb", "kill", "weapon", "toxic")
+- Command blocking and ethical warnings
+- Agent-to-agent supervision logic
+- Local logging of flagged commands (`ethical_log.txt` or `command_log.txt`)
+- Implemented in **C#**, **Java**, and **Python**
+- Modular structure for easy integration into other systems
+
+## 💻 Technologies
+- **C#**: Console-based monitoring with logging and supervision
+- **Java**: Dual-agent architecture with file-based logging
+- **Python**: Lightweight ethical filter with extendable logic
+
+## 📜 Usage
+Run the main file in your preferred language. Input a command, and the system will:
+1. Analyze the command for ethical risks
+2. Log any flagged content
+3. Allow or block execution based on supervision
+
+## 💼 Commercial Use
+This software is protected by a proprietary license.  
+Commercial use, resale, or integration into paid systems requires a license agreement.  
+For inquiries, contact: **aorosz78@gmail.com**
+
+## 👤 Author
+**Attila Orosz** – Technician and ethical AI architect  
+Specialized in multi-language safety systems, agent supervision, and human-centered technology.
+
+## 🌍 License
+Proprietary – not for free commercial use.  
+See `LICENSE.md` for full 
