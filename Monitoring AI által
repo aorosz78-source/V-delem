@@ -1,0 +1,39 @@
+# AI monitoring program – V-delem
+
+class AI_Agent:
+    def __init__(self, name):
+        self.name = name
+        self.last_command = None
+
+    def receive_command(self, command):
+        self.last_command = command
+        print(f"{self.name} parancsot kapott: {command}")
+        return self.analyze_command(command)
+
+    def analyze_command(self, command):
+        # Veszélyes kulcsszavak listája
+        dangerous_keywords = ["bomba", "robbanóanyag", "fegyver", "mérgező", "atombomba", "gyilkol", "terror"]
+        for word in dangerous_keywords:
+            if word in command.lower():
+                print(f"{self.name} figyelmeztetés: Veszélyes parancs észlelve!")
+                return False
+        return True
+
+    def supervise(self, other_agent):
+        if not other_agent.analyze_command(other_agent.last_command):
+            print(f"{self.name} leállítja {other_agent.name} működését!")
+        else:
+            print(f"{self.name} jóváhagyja {other_agent.name} működését.")
+
+# Szimuláció
+alpha = AI_Agent("Agent Alpha")
+beta = AI_Agent("Agent Beta")
+
+# Parancs bevitel
+command = input("Add meg a parancsot az AI-nak: ")
+
+# Alpha kapja a parancsot, Beta felügyeli
+if alpha.receive_command(command):
+    beta.supervise(alpha)
+else:
+    print("A parancs nem biztonságos, végrehajtás megszakítva.")
