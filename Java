@@ -1,0 +1,106 @@
+import java.util.*;
+
+class AIAgent {
+    private String name;
+    private String lastCommand;
+    private List<String> dangerousKeywords = Arrays.asList(
+        "bomba", "robbanóanyag", "fegyver", "mérgező", "gyilkol", "terror"
+    );
+
+    public AIAgent(String name) {
+        this.name = name;
+    }
+
+    public boolean receiveCommand(String command) {
+        lastCommand = command;
+        System.out.println(name + " parancsot kapott: " + command);
+        return analyzeCommand(command);
+    }
+
+    public boolean analyzeCommand(String command) {
+        for (String word : dangerousKeywords) {
+            if (command.toLowerCase().contains(word)) {
+                System.out.println(name + " figyelmeztetés: Veszélyes parancs észlelve!");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void supervise(AIAgent other) {
+        if (!other.analyzeCommand(other.lastCommand)) {
+            System.out.println(name + " leállítja " + other.name + " működését!");
+        } else {
+            System.out.println(name + " jóváhagyja " + other.name + " működését.");
+        }
+    }
+}
+
+
+
+import java.util.*;
+import java.io.*;
+
+class AIAgent {
+    private String name;
+    private String lastCommand;
+    private List<String> dangerousKeywords = Arrays.asList(
+        "bomba", "robbanóanyag", "fegyver", "mérgező", "gyilkol", "terror"
+    );
+
+    public AIAgent(String name) {
+        this.name = name;
+    }
+
+    public boolean receiveCommand(String command) {
+        lastCommand = command;
+        System.out.println(name + " parancsot kapott: " + command);
+        logCommand(command);
+        return analyzeCommand(command);
+    }
+
+    public boolean analyzeCommand(String command) {
+        for (String word : dangerousKeywords) {
+            if (command.toLowerCase().contains(word)) {
+                System.out.println(name + " figyelmeztetés: Veszélyes parancs észlelve!");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void supervise(AIAgent other) {
+        if (!other.analyzeCommand(other.lastCommand)) {
+            System.out.println(name + " leállítja " + other.name + " működését!");
+        } else {
+            System.out.println(name + " jóváhagyja " + other.name + " működését.");
+        }
+    }
+
+    private void logCommand(String command) {
+        try (FileWriter fw = new FileWriter("command_log.txt", true)) {
+            fw.write(new Date() + ": " + name + " kapta: " + command + "\n");
+        } catch (IOException e) {
+            System.out.println("Hiba a naplózás során: " + e.getMessage());
+        }
+    }
+}
+
+public class MainWithLog {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        AIAgent alpha = new AIAgent("Agent Alpha");
+        AIAgent beta = new AIAgent("Agent Beta");
+
+        System.out.print("Add meg a parancsot az AI-nak: ");
+        String command = scanner.nextLine();
+
+        if (alpha.receiveCommand(command)) {
+            beta.supervise(alpha);
+        } else {
+            System.out.println("A parancs nem biztonságos, végrehajtás megszakítva.");
+        }
+
+        System.out.println("A parancs naplózva lett a 'command_log.txt' fájlba.");
+    }
+}
