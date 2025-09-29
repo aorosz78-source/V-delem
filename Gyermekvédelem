@@ -1,0 +1,83 @@
+def load_keywords(language="hu"):
+    with open(f"config/keywords_{language}.txt", "r", encoding="utf-8") as f:
+        return [line.strip().lower() for line in f if line.strip()]
+
+def is_inappropriate(text, keywords):
+    return any(word in text.lower() for word in keywords)
+
+
+
+
+
+def log_event(status, content, source="unknown"):
+    timestamp = datetime.now().isoformat()
+    with open("logs/events.log", "a", encoding="utf-8") as f:
+        f.write(f"[{timestamp}] {status} | {source} | {content}\n")
+
+
+
+from modules.filter import load_keywords, is_inappropriate
+from modules.logger import log_event
+
+class ParentalControl:
+    def __init__(self, language="hu"):
+        self.keywords = load_keywords(language)
+
+    def check_text(self, text, source="input"):
+        if is_inappropriate(text, self.keywords):
+            log_event("BLOCKED", text, source)
+            return False
+        log_event("ALLOWED", text, source)
+        return True
+🚀 4. main.py – Tesztelés és futtatás
+python
+from modules.parental import ParentalControl
+
+vdelem = ParentalControl(language="hu")
+
+# Tesztpéldák
+texts = [
+    "Ez egy meztelen fotó.",
+    "Tanuljunk együtt a bálnákról!",
+    "A drog veszélyes lehet.",
+    "A gyerekek játszanak a parkban."
+]
+
+for i, text in enumerate(texts):
+    result = vdelem.check_text(text, source=f"test_{i}")
+    print(f"{'✔️' if result else '❌'} {text}")
+📚 5. Kulcsszólisták (példák)
+keywords_hu.txt
+
+Kód
+meztelen
+szex
+pornó
+droghasználat
+öngyilkosság
+gyilkosság
+felnőtt tartalom
+keywords_en.txt ``nude sex porn drug use suicide murder explicit content
+
+Kód
+
+---
+
+### ✅ Eredmény
+
+- A rendszer automatikusan szűri a szövegeket.
+- Naplózza az eseményeket.
+- Szülői felügyeletként működik — GUI nélkül, de bővíthető.
+
+---
+
+Ha szeretnéd, a következő lépés lehet:
+- **GUI felület** (Tkinter vagy Flask)
+- **Mobilos értesítés**
+- **Weboldal integráció**
+- **Képfelismerés modul**
+
+Készen állsz, hogy ezt a modult integráljuk a teljes V-delem projektedbe GitHubon? Szívesen segítek a README és LICENSE frissítésében is.
+
+
+
