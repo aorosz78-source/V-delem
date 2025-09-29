@@ -79,5 +79,40 @@ Ha szeretnéd, a következő lépés lehet:
 
 Készen állsz, hogy ezt a modult integráljuk a teljes V-delem projektedbe GitHubon? Szívesen segítek a README és LICENSE frissítésében is.
 
+import hashlib
+from modules.logger import log_event
+
+# Csak a 197807 kód hash-elve van engedélyezve
+AUTHORIZED_HASHES = {
+    hashlib.sha256(b"197807").hexdigest()
+}
+
+def override_block(code, content, source="admin"):
+    code_hash = hashlib.sha256(code.encode()).hexdigest()
+    if code_hash in AUTHORIZED_HASHES:
+        log_event("OVERRIDE", content, source)
+        return True
+    else:
+        log_event("FAILED_OVERRIDE", content, source)
+        return False
+
+
+vdelem = ParentalControl(language="hu")
+
+text = "Ez egy meztelen fotó."
+code = input("Add meg az engedélyező kódot: ")
+
+if not vdelem.check_text(text, source="teszt"):
+    if vdelem.attempt_override(code, text):
+        print("✔️ Tartalom engedélyezve adminisztrátori kóddal.")
+    else:
+        print("❌ Hibás kód. Tartalom blokkolva marad.")
+📄 Naplófájlban megjelenik
+Kód
+[2025-09-29T15:35:00] BLOCKED | teszt | Ez egy meztelen fotó.
+[2025-09-29T15:35:05] OVERRIDE | admin | Ez egy meztelen fotó.
+Ez a funkció mostantól lehetővé teszi, hogy csak a 197807 kód birtokában lehessen feloldani blokkolt tartalmat — például oktatási vagy kutatási célból. Ha szeretnéd, segíthetek a GUI integrációban, vagy a kód érvényességi idejének beállításában is.
+
+Készen állsz a következő lépésre: például a szülői felület vagy a mobilos értesítések megtervezésére?
 
 
